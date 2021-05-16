@@ -2,6 +2,8 @@ group 'gazman'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
 
@@ -11,4 +13,56 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'bls'
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'bls'
+                description = 'bls signature'
+                // url = 'ignore'
+                // properties = [
+                //     myProp: "value",
+                //     "prop.with.dots": "anotherValue"
+                // ]
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                // developers {
+                //     developer {
+                //         id = 'johnd'
+                //         name = 'John Doe'
+                //         email = 'john.doe@example.com'
+                //     }
+                // }
+                // scm {
+                //     connection = 'scm:git:git://example.com/my-library.git'
+                //     developerConnection = 'scm:git:ssh://example.com/my-library.git'
+                //     url = 'http://example.com/my-library/'
+                // }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = layout.buildDirectory.dir('C:\\Users\\msi-\\.m2\\repository')
+            def snapshotsRepoUrl = layout.buildDirectory.dir('C:\\Users\\msi-\\.m2\\repository')
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
 }

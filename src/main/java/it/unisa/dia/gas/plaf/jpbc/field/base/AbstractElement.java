@@ -1,6 +1,5 @@
 package it.unisa.dia.gas.plaf.jpbc.field.base;
 
-import com.sun.istack.internal.NotNull;
 import it.unisa.dia.gas.jpbc.Element;
 import it.unisa.dia.gas.jpbc.ElementPowPreProcessing;
 
@@ -133,7 +132,7 @@ public abstract class AbstractElement<F extends AbstractField> implements Elemen
      * @param k
      * @return
      */
-    private @NotNull List<Element> buildPowWindow(int k) {
+    private  List<Element> buildPowWindow(int k) {
         int s;
         int lookupSize;
         List<Element> lookup;
